@@ -19,15 +19,22 @@
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Georgia,'Times New Roman',serif}
 a{color:var(--accent2)} h1,h2,h3{font-family:'Helvetica Neue',Arial,sans-serif;line-height:1.2}
 nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:9;
-  display:flex;gap:.2rem;overflow-x:auto;padding:.55rem 1rem;font-family:Arial,sans-serif;font-size:.82rem}
+  display:flex;align-items:center;gap:.5rem;padding:.55rem 1rem;font-family:Arial,sans-serif;font-size:.82rem}
+.navlinks{display:flex;align-items:center;gap:.2rem;overflow-x:auto;flex:1 1 auto;min-width:0;
+  scrollbar-width:thin;-webkit-overflow-scrolling:touch}
 nav a{color:var(--muted);text-decoration:none;padding:.25rem .6rem;border-radius:99px;white-space:nowrap}
 nav a:hover{color:var(--ink);background:var(--chip)}
+.lang{display:flex;gap:2px;background:var(--chip);border-radius:99px;padding:2px;flex:0 0 auto}
+.lang button{font:600 .74rem/1 Arial,sans-serif;letter-spacing:.06em;border:0;cursor:pointer;
+  padding:.35rem .7rem;border-radius:99px;background:transparent;color:var(--muted)}
+.lang button[aria-pressed="true"]{background:var(--accent);color:#fff}
+.lang button:hover{color:var(--ink)} .lang button[aria-pressed="true"]:hover{color:#fff}
 .wrap{max-width:880px;margin:0 auto;padding:0 1.2rem 5rem}
 header.hero{padding:4.5rem 0 2.5rem;border-bottom:1px solid var(--line)}
 .kicker{font-family:Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:var(--accent)}
 h1{font-size:clamp(2rem,5vw,3.1rem);margin:.4rem 0 .8rem}
 .lede{font-size:1.15rem;color:var(--muted);max-width:44rem}
-section{padding:2.6rem 0 .6rem;border-bottom:1px solid var(--line)}
+section{padding:2.6rem 0 .6rem;border-bottom:1px solid var(--line);scroll-margin-top:3.4rem}
 h2{font-size:1.55rem;margin:0 0 1rem}
 h2 .n{color:var(--accent);font-size:.9rem;vertical-align:.35em;margin-right:.5rem}
 h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
@@ -50,16 +57,49 @@ figure{margin:1.4rem 0} figcaption{font-size:.82rem;color:var(--muted);margin-to
 .flow{width:100%;height:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
 footer{padding:2rem 0;color:var(--muted);font-size:.85rem}
 .srcs{font-size:.85rem;color:var(--muted)} .srcs li{margin:.2rem 0}
+
+/* language panes */
+[data-pane]{display:none}
+body[data-lang="en"] [data-pane="en"],
+body[data-lang="sk"] [data-pane="sk"]{display:block}
+nav [data-pane]{display:none}
+body[data-lang="en"] nav [data-pane="en"],
+body[data-lang="sk"] nav [data-pane="sk"]{display:contents}
 </style>
 </head>
-<body>
+<body data-lang="en">
+<script>
+// set language before first paint: stored choice, else browser language
+(function(){try{
+  var l = localStorage.getItem('hc-lang');
+  if(l!=='en'&&l!=='sk') l = (navigator.language||'en').toLowerCase().indexOf('sk')===0 ? 'sk' : 'en';
+  document.body.setAttribute('data-lang', l); document.documentElement.lang = l;
+}catch(e){}})();
+</script>
+
 <nav>
-  <a href="#thesis">Thesis</a><a href="#model">How it works</a><a href="#market">Market</a>
-  <a href="#numbers">The numbers</a><a href="#funding">EU funding</a><a href="#requirements">Requirements</a>
-  <a href="#wedge">The wedge</a><a href="#investors">Investors</a><a href="#roadmap">Roadmap</a>
-  <a href="#risks">Risks</a><a href="#sources">Sources</a>
+  <div class="navlinks">
+  <span data-pane="en">
+    <a href="#thesis">Thesis</a><a href="#model">How it works</a><a href="#market">Market</a>
+    <a href="#numbers">The numbers</a><a href="#funding">EU funding</a><a href="#requirements">Requirements</a>
+    <a href="#wedge">The wedge</a><a href="#investors">Investors</a><a href="#roadmap">Roadmap</a>
+    <a href="#risks">Risks</a><a href="#sources">Sources</a>
+  </span>
+  <span data-pane="sk">
+    <a href="#sk-thesis">Téza</a><a href="#sk-model">Ako to funguje</a><a href="#sk-market">Trh</a>
+    <a href="#sk-numbers">Čísla</a><a href="#sk-funding">Eurofondy</a><a href="#sk-requirements">Požiadavky</a>
+    <a href="#sk-wedge">Prvý krok</a><a href="#sk-investors">Investori</a><a href="#sk-roadmap">Plán</a>
+    <a href="#sk-risks">Riziká</a><a href="#sk-sources">Zdroje</a>
+  </span>
+  </div>
+  <div class="lang" role="group" aria-label="Language / Jazyk">
+    <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-set-lang="sk" aria-pressed="false">SK</button>
+  </div>
 </nav>
-<div class="wrap">
+
+<!-- ============================ ENGLISH ============================ -->
+<div class="wrap" data-pane="en">
 
 <header class="hero">
   <div class="kicker">Research &amp; pitch dossier · Slovakia · August 2026</div>
@@ -82,7 +122,7 @@ footer{padding:2rem 0;color:var(--muted);font-size:.85rem}
   <p>Slovakia is an unusually good place to copy it, for one blunt reason:
   <b>Slovak district heat is gas-fired and expensive</b>. The regulated variable
   component averaged <b>€93.4/MWh in 2025</b>, while recovered datacenter heat can be
-  delivered for roughly <b>€55/MWh</b> all-in. In Stockholm — the mature market —
+  delivered for roughly <b>€55/MWh</b>. In Stockholm — the mature market —
   waste heat fetches only €35–45/MWh. The spread that is a rounding error in the
   Nordics is a real margin in Slovakia, and the buyer is under EU legal pressure to
   decarbonise.</p>
@@ -101,7 +141,7 @@ footer{padding:2rem 0;color:var(--muted);font-size:.85rem}
   <figure>
   <svg class="flow" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Energy flow diagram">
     <style>
-      .b{fill:none;stroke:currentColor;stroke-width:1.4;rx:8}
+      .b{fill:none;stroke:currentColor;stroke-width:1.4}
       .t{font:600 14px Arial;fill:currentColor}
       .s{font:11.5px Arial;fill:currentColor;opacity:.65}
       .ar{stroke:currentColor;stroke-width:1.6;fill:none;marker-end:url(#a)}
@@ -131,11 +171,10 @@ footer{padding:2rem 0;color:var(--muted);font-size:.85rem}
     <path class="ar hot" d="M660,150 H714"/>
     <text class="s" x="687" y="140" text-anchor="middle">75 °C</text>
     <text class="money" x="340" y="60" text-anchor="middle">€7–10M/yr compute revenue</text>
-    <path class="ar" d="M340,90 V70" transform="rotate(180 340 80)"/>
     <text class="money" x="780" y="60" text-anchor="middle">€3.7M/yr heat @ €70/MWh</text>
     <text class="s" x="340" y="245" text-anchor="middle">EU funds (Modernisation Fund, Program Slovensko, ELENA)</text>
     <path class="ar" d="M480,238 C520,238 560,225 580,215"/>
-    <text class="s" x="620" y="255" text-anchor="start">→ 30–45% grant on thermal capex</text>
+    <text class="s" x="600" y="255" text-anchor="start">→ 30–45% grant on thermal capex</text>
   </svg>
   <figcaption>Reference 5 MW deployment. Delivered heat = recovered heat × COP/(COP−1) ≈ 53 GWh_th/yr.</figcaption>
   </figure>
@@ -352,5 +391,349 @@ footer{padding:2rem 0;color:var(--muted);font-size:.85rem}
   evaluation and discussion — not an offer, engineering design, or investment advice.
 </footer>
 </div>
+
+<!-- ============================ SLOVENČINA ============================ -->
+<div class="wrap" data-pane="sk">
+
+<header class="hero">
+  <div class="kicker">Výskumný a investičný podklad · Slovensko · august 2026</div>
+  <h1>Dátové centrá, ktoré vykurujú mestá.</h1>
+  <p class="lede">HeatCloud stavia cloudové dátové centrá v štýle švajčiarskeho Infomaniaku,
+  napojené na slovenské sústavy centralizovaného zásobovania teplom, ktoré dnes visia na
+  plyne — výpočtový výkon predávame za trhové ceny, získané odpadové teplo o 20 % lacnejšie
+  ako z plynu, pričom tretinu investície do tepelnej časti pokryjú európske dekarbonizačné
+  peniaze.</p>
+  <p><span class="tag">suverénny cloud</span><span class="tag">centralizované teplo</span>
+  <span class="tag">využitie odpadového tepla</span><span class="tag">smernica EED 2023/1791</span>
+  <span class="tag">Modernizačný fond</span></p>
+</header>
+
+<section id="sk-thesis">
+  <h2><span class="n">01</span>Téza</h2>
+  <p>Každá megawatthodina elektriny, ktorú dátové centrum spotrebuje, opúšťa budovu ako
+  teplo s teplotou 30–45&nbsp;°C. V Ženeve vháňa centrum D4 spoločnosti Infomaniak od
+  novembra 2024 <b>približne 95 % svojej energie</b> späť do kantonálnej teplárenskej siete
+  ako teplo s teplotou 67&nbsp;°C — dosť na vykúrenie zhruba 6 000 domácností. Technológia
+  je overená a bežne dostupná (tepelné čerpadlá Trane, riadenie Siemens).</p>
+  <p>Slovensko je na zopakovanie tohto modelu nezvyčajne dobré miesto, a to z jedného
+  priameho dôvodu: <b>slovenské centrálne teplo sa vyrába z plynu a je drahé</b>. Priemerná
+  regulovaná variabilná zložka ceny dosiahla v roku 2025 <b>93,4 €/MWh</b>, kým odpadové
+  teplo z dátového centra vieme dodať približne za <b>55 €/MWh</b>. V Štokholme — na
+  vyzretom trhu — sa odpadové teplo vykupuje len za 35–45 €/MWh. Rozdiel, ktorý je v
+  Škandinávii zaokrúhľovacou chybou, je na Slovensku skutočnou maržou — a odberateľ je
+  pod právnym tlakom EÚ dekarbonizovať.</p>
+  <div class="callout">
+    <b>Poctivý rámec:</b> teplo tvorí 15–20 % tržieb — je to zlepšovač marže, povoľovacia
+    výhoda a kľúč k dotáciám. Jadrom podnikania je zisková prevádzka suverénneho cloudu a
+    kolokácie na málo obslúženom trhu (~30&nbsp;MW v celej krajine, žiadny región
+    hyperscalera). Príbeh o teple robí toto dátové centrum lacnejším na výstavbu, ľahším na
+    povolenie a politicky žiadaným. Infomaniak postupoval rovnako: najprv tržby z cloudu,
+    až potom teplo.
+  </div>
+</section>
+
+<section id="sk-model">
+  <h2><span class="n">02</span>Ako to funguje</h2>
+  <figure>
+  <svg class="flow" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma toku energie">
+    <style>
+      .b{fill:none;stroke:currentColor;stroke-width:1.4}
+      .t{font:600 14px Arial;fill:currentColor}
+      .s{font:11.5px Arial;fill:currentColor;opacity:.65}
+      .ar{stroke:currentColor;stroke-width:1.6;fill:none;marker-end:url(#a2)}
+      .hot{stroke:#c25e1e}
+      .money{font:600 12px Arial;fill:#0e6e6e}
+    </style>
+    <defs><marker id="a2" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L8,4.5 L0,9" fill="none" stroke="currentColor" stroke-width="1.4"/></marker></defs>
+    <rect class="b" x="20" y="110" width="150" height="80" rx="8"/>
+    <text class="t" x="95" y="145" text-anchor="middle">Elektrina zo siete</text>
+    <text class="s" x="95" y="165" text-anchor="middle">~50 GWh/rok</text>
+    <rect class="b" x="250" y="90" width="180" height="120" rx="8"/>
+    <text class="t" x="340" y="130" text-anchor="middle">Dátové centrum</text>
+    <text class="s" x="340" y="150" text-anchor="middle">5 MW IT · vodou chladené</text>
+    <text class="s" x="340" y="168" text-anchor="middle">kolokácia + suverénny cloud</text>
+    <rect class="b" x="510" y="90" width="150" height="120" rx="8"/>
+    <text class="t" x="585" y="130" text-anchor="middle">Tepelné čerpadlá</text>
+    <text class="s" x="585" y="150" text-anchor="middle">COP ≈ 4</text>
+    <text class="s" x="585" y="168" text-anchor="middle">40 °C → 75 °C</text>
+    <rect class="b" x="720" y="90" width="120" height="120" rx="8"/>
+    <text class="t" x="780" y="130" text-anchor="middle">Sieť CZT</text>
+    <text class="s" x="780" y="150" text-anchor="middle">mesta</text>
+    <text class="s" x="780" y="168" text-anchor="middle">~5 000 bytov</text>
+    <path class="ar" d="M170,150 H244"/>
+    <path class="ar hot" d="M430,150 H504"/>
+    <text class="s" x="467" y="140" text-anchor="middle">40–45 °C</text>
+    <path class="ar hot" d="M660,150 H714"/>
+    <text class="s" x="687" y="140" text-anchor="middle">75 °C</text>
+    <text class="money" x="340" y="60" text-anchor="middle">7–10 mil. €/rok z výpočtov</text>
+    <text class="money" x="780" y="60" text-anchor="middle">3,7 mil. €/rok teplo pri 70 €/MWh</text>
+    <text class="s" x="340" y="245" text-anchor="middle">Eurofondy (Modernizačný fond, Program Slovensko, ELENA)</text>
+    <path class="ar" d="M480,238 C520,238 560,225 580,215"/>
+    <text class="s" x="600" y="255" text-anchor="start">→ 30–45 % dotácia na tepelnú časť</text>
+  </svg>
+  <figcaption>Referenčné nasadenie 5 MW. Dodané teplo = získané teplo × COP/(COP−1) ≈ 53 GWh<sub>t</sub>/rok.</figcaption>
+  </figure>
+  <p>Rozhodujúca aritmetika je jediný riadok: dodané odpadové teplo stojí
+  <span class="formula">P_elektrina ÷ (COP − 1)</span> za MWh<sub>t</sub> plus návratnosť
+  investície — samotné teplo je zadarmo, platíte len za zvýšenie teploty. Pri cene
+  elektriny 165 €/MWh pre priemysel a COP 4 je to približne 55 €/MWh<sub>t</sub> oproti
+  referenčnej cene 93 € z plynu. Pri predaji za <b>70 €/MWh</b> mesto ušetrí zhruba 25 % a
+  zároveň dekarbonizuje; nám zostáva ~15 €/MWh z 53 GWh.</p>
+</section>
+
+<section id="sk-market">
+  <h2><span class="n">03</span>Trh</h2>
+  <div class="grid">
+    <div class="card"><b>Slovenský trh DC</b><div class="big">~30 MW</div>
+      <div class="small">~14 zariadení, žiadny región hyperscalera. Najbližšie cloudové regióny: Viedeň, Varšava. Neuspokojený dopyt po dátovej suverenite a GDPR.</div></div>
+    <div class="card"><b>Dosah CZT</b><div class="big">1,8 mil. ľudí</div>
+      <div class="small">Samotný MH Teplárenský holding: 6 miest, ~320 000 domácností. Prevažne plyn, pod tlakom dekarbonizácie.</div></div>
+    <div class="card"><b>Cena tepla SR (2025)</b><div class="big">93,4 €/MWh</div>
+      <div class="small">Priemerná regulovaná variabilná zložka (ÚRSO). Fixná zložka 235,90 €/kW/rok. Priemerná domácnosť platí ~936 €/rok.</div></div>
+    <div class="card"><b>Severský benchmark</b><div class="big">35–45 €/MWh</div>
+      <div class="small">Toľko platí Štokholm či Helsinki za teplo z dátových centier — plynová prirážka je celý dôvod, prečo to robiť práve na Slovensku.</div></div>
+  </div>
+  <h3>Prečo práve teraz — štyri hodiny, ktoré sa spustili až po roku 2023</h3>
+  <ol>
+    <li><b>Smernica EED 2023/1791</b>: každé dátové centrum v EÚ nad 1 MW musí vypracovať
+    analýzu nákladov a prínosov využitia odpadového tepla a zaviesť ho, ak to nie je
+    technicky či ekonomicky nerealizovateľné; zariadenia nad 500 kW musia hlásiť
+    energetické ukazovatele do databázy EÚ. Francúzsko už využitie zaviedlo ako povinné.</li>
+    <li><b>Plynový šok</b>: Slovensko prišlo o lacný ruský tranzit a jeho teplárenstvo
+    politicky zúfalo hľadá neplynové zdroje.</li>
+    <li><b>Termín Modernizačného fondu</b>: slovenská obálka ~3,89 mld. € sa musí minúť do
+    roku 2030 — a dnes zahanbuje Brusel tým, že sčasti tečie do plynových projektov.</li>
+    <li><b>Dopyt po AI inferencii</b> opäť urobil dátové centrá na malých trhoch
+    investovateľnými.</li>
+  </ol>
+</section>
+
+<section id="sk-numbers">
+  <h2><span class="n">04</span>Čísla — referenčné nasadenie 5 MW</h2>
+  <p class="small">Odhady od stola určené na posúdenie, nie projektová dokumentácia. Každé
+  číslo má zdroj alebo odvodenie vo výskumnom korpuse; predpoklady sú označené.</p>
+  <h3>Energetická bilancia</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Veličina</th><th>Hodnota</th><th>Základ</th></tr>
+    <tr><td>IT záťaž</td><td>5,0 MW</td><td>zvolený návrh</td></tr>
+    <tr><td>Spotreba elektriny zariadenia (PUE ~1,15)</td><td>~50 GWh/rok</td><td>vodou chladené, úroveň Infomaniak</td></tr>
+    <tr><td>Využiteľné teplo pri 40–45 °C</td><td>~40 GWh<sub>t</sub>/rok</td><td>~90 % energie IT</td></tr>
+    <tr><td>COP tepelného čerpadla (40→75 °C)</td><td>3,5–4,0</td><td>rozsah v literatúre 3,2–5,0</td></tr>
+    <tr><td><b>Teplo dodané do siete</b></td><td><b>~53 GWh<sub>t</sub>/rok</b></td><td>Q×COP/(COP−1)</td></tr>
+    <tr><td>Zásobené domácnosti</td><td>~5 000 bytov</td><td>pri 10 MWh<sub>t</sub>/rok na byt</td></tr>
+  </table></div>
+  <h3>Tržby v ustálenom stave (3. rok, 85 % obsadenosť)</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Položka</th><th>€ / rok</th><th>Základ</th></tr>
+    <tr><td>Kolokácia — 4 250 kW po 140 €/kW/mes.</td><td>~7,1 mil. €</td><td>ceny na sekundárnom trhu</td></tr>
+    <tr><td>Vrstva suverénneho cloudu (VPS/S3/managed)</td><td>1–3 mil. €</td><td>model Infomaniak; vyžaduje produkt a predaj</td></tr>
+    <tr><td>Teplo — 53 GWh<sub>t</sub> po 70 €/MWh</td><td>~3,7 mil. €</td><td>~2,9 mil. € ide na elektrinu a investíciu</td></tr>
+    <tr><td><b>Spolu</b></td><td><b>11–14 mil. €</b></td><td>teplo ≈ 15–20 % hrubých tržieb</td></tr>
+  </table></div>
+  <h3>Investícia</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Položka</th><th>mil. €</th><th>Základ</th></tr>
+    <tr><td>Budova DC, vystrojenie, napájanie, chladenie (5 MW)</td><td>40–50</td><td>európsky benchmark ~10 mil. USD/MW (index T&amp;T 2025)</td></tr>
+    <tr><td>Tepelné čerpadlá (~7 MW<sub>t</sub>), výmenníky, akumulácia</td><td>5–7</td><td>0,7–1 mil. € na MW<sub>t</sub></td></tr>
+    <tr><td>Pripojenie na sieť CZT (≤2 km)</td><td>1–2</td><td>závisí od trasy</td></tr>
+    <tr><td><b>Spolu</b></td><td><b>~46–59</b></td><td></td></tr>
+    <tr><td>Dotácie EÚ na tepelnú časť (30–45 %)</td><td>−2,5 až −4</td><td>schéma štátnej pomoci CZT + Modernizačný fond</td></tr>
+    <tr><td>Technická asistencia ELENA/TARGET</td><td>−0,5</td><td>až 90 % nákladov na prípravu projektu</td></tr>
+  </table></div>
+  <div class="callout warn"><b>Čo dotácie nepokryjú:</b> nič v európskom balíku nefinancuje
+  servery ani dátové sály. Výpočtová časť podnikania musí sama obslúžiť vyše 40 mil. €
+  kapitálu — preto plán začína pilotom za 400 tis. €, a nie stavbou za 50 mil. €.</div>
+</section>
+
+<section id="sk-funding">
+  <h2><span class="n">05</span>Európske zdroje financovania</h2>
+  <div class="tblwrap"><table>
+    <tr><th>Nástroj</th><th>Čo poskytuje</th><th>Vhodnosť</th></tr>
+    <tr><td><b>Modernizačný fond</b> (EU ETS)</td><td>Obálka pre SR ~3,89 mld. € do roku 2030; teplárenstvo je výslovnou prioritou</td><td>Dotácia na tepelnú investíciu; fond hľadá neplynové vlajkové projekty</td></tr>
+    <tr><td><b>Program Slovensko 2021–27</b> (SIEA)</td><td>Aktívne výzvy, napr. PSK-SIEA-008-2025 (efektívnosť a OZE v podnikoch); samostatná schéma štátnej pomoci pre účinné CZT so stropom notifikácie 50 mil. €/projekt</td><td>Tepelná polovica projektu sem zapadá presne</td></tr>
+    <tr><td><b>EIB ELENA</b></td><td>Granty až do 90 % nákladov na prípravu investičných programov v teplárenstve</td><td>Zaplatí štúdiu realizovateľnosti a projektovú fázu</td></tr>
+    <tr><td><b>EIB TARGET</b></td><td>Technická asistencia pre transformujúce sa regióny — už ju využilo Partizánske (2024) na CZT vrátane odpadového tepla</td><td>Precedens: stredne veľké slovenské mesto, tá istá téma</td></tr>
+    <tr><td><b>Úvery EIB / EBRD + SIH</b></td><td>Seniorné infraštruktúrne financovanie; EIB je aktívna v slovenskej energetike (+50 mil. € na sieť, 2026); Slovak Investment Holding spoluinvestuje</td><td>Projektové financovanie, keď existujú odberateľské zmluvy</td></tr>
+    <tr><td><b>Inovačný fond</b></td><td>Granty z EU ETS na inovatívne nízkouhlíkové technológie</td><td>Možnosť pre integrovaný celok DC + čerpadlá + akumulácia; silne prevýšený dopyt</td></tr>
+    <tr><td><b>Plán obnovy (RRF)</b></td><td>Financoval dekarbonizáciu CZT, končí v roku 2026</td><td>Pre nové veľké projekty považovať za uzavretý</td></tr>
+  </table></div>
+  <p><b>Otvorená otázka pre due diligence:</b> či je <i>súkromný prevádzkovateľ dátového
+  centra</i> (na rozdiel od regulovaného tepelného podniku alebo mestského joint venture)
+  oprávneným žiadateľom v jednotlivých výzvach a aká bude reálna intenzita pomoci po
+  pravidlách kumulácie štátnej pomoci. Prvých 10 tis. € právnych nákladov ide sem.</p>
+</section>
+
+<section id="sk-requirements">
+  <h2><span class="n">06</span>Obchodné a regulačné požiadavky</h2>
+  <ol>
+    <li><b>Povolenie ÚRSO na podnikanie v tepelnej energetike</b> (zákon č. 657/2004 Z. z.,
+    výroba a rozvod tepla) — potrebné až pri predaji tepla mimo areálu; pilot spotrebuje
+    teplo na mieste a povolenie nepotrebuje. Vyžaduje odborného zástupcu.</li>
+    <li><b>Osvedčenie o súlade</b> s koncepciou rozvoja obce v tepelnej energetike pri
+    novom tepelnom výkone ≥10 MW<sub>t</sub> — v praxi to znamená, že mesto musí projekt
+    chcieť. Najprv memorandum.</li>
+    <li><b>Dvojzložková regulácia ceny tepla ÚRSO</b> — s auditom nákladov. Nastaviť
+    stratégiu 70 €/MWh tak, aby regulátor uznal nákladovú základňu, je najostrejšie
+    regulačné riziko projektu.</li>
+    <li><b>Pripojenie do elektrickej siete ≥5 MW</b> — žiadosť na ZSD/SSD/VSD alebo SEPS.
+    Celoštátne úzke hrdlo; podať už vo fáze LOI, nie až pri povoľovaní.</li>
+    <li><b>Stavebné povoľovanie</b> — územné konanie, stavebné povolenie podľa nového
+    stavebného zákona, pravdepodobne zisťovacie konanie EIA.</li>
+    <li><b>Plnenie EED</b> — analýza nákladov a prínosov podľa čl. 26 (ktorú tento projekt
+    spĺňa už svojou konštrukciou) a hlásenie ukazovateľov podľa čl. 12 nad 500 kW.</li>
+    <li><b>Certifikácie na výpočtovej strane</b> — ISO 27001, následne EUCS/SNAS, ak je
+    dopyt verejného sektora po suverenite reálny. Uloženie dát v SR podľa GDPR je predajný
+    argument, takže certifikácia nie je voliteľná.</li>
+    <li><b>Zmluva o odbere tepla</b> — 10-ročná a dlhšia zmluva o výkupe tepla s
+    prevádzkovateľom siete alebo licencovaná priama dodávka veľkým odberateľom.</li>
+  </ol>
+</section>
+
+<section id="sk-wedge">
+  <h2><span class="n">07</span>Prvý krok — skôr než sa minie 50 mil. €</h2>
+  <div class="grid">
+    <div class="card"><b>Čo</b><div class="small">Jeden kontajner s 300 kW výpočtového
+    výkonu (imerzné alebo vodné chladenie) v mestskom aquaparku či na plavárni. Výmenník
+    do okruhu teplej vody. Výkon sa predáva ako dávková kapacita (render, CI, inferencia).</div></div>
+    <div class="card"><b>Náklad</b><div class="big">350–450 tis. €</div><div class="small">kontajner,
+    výpočtová technika, výmenníková zostava, montáž. Tržby do 12 mesiacov.</div></div>
+    <div class="card"><b>Dohoda</b><div class="small">Plaváreň kupuje teplo o 25 % lacnejšie
+    ako z plynu, na 3 roky. Spotreba na mieste → bez licencie dodávateľa. Pod 500 kW → bez
+    povinného hlásenia podľa EED.</div></div>
+    <div class="card"><b>Dôkaz</b><div class="small">Deep Green (UK) overil jednotkovú
+    ekonomiku — plaváreň v Devone znížila účet za kúrenie o vyše 60 %; Octopus Energy do
+    modelu investoval 200 mil. £ (2024).</div></div>
+  </div>
+  <p>Pilot premení „žiadne referencie“ na „jediný tím na Slovensku, ktorý to naozaj
+  urobil“ — a vytvorí odmeraný dataset, na ktorom bude stáť zmluva o výkupe tepla pre
+  veľký projekt aj každá žiadosť o dotáciu.</p>
+</section>
+
+<section id="sk-investors">
+  <h2><span class="n">08</span>Koho oslovujeme</h2>
+  <h3>Strategickí partneri a odberatelia tepla (najprv — oni z tézy urobia fakt)</h3>
+  <ul>
+    <li><b>MH Teplárenský holding</b> — štátna teplárenská skupina, šesť miest,
+    dekarbonizačný mandát a prístup k Modernizačnému fondu. Ponuka: neplynové teplo
+    spĺňajúce predpisy, lacnejšie než váš marginálny plyn, s nulovou investíciou z vašej
+    strany.</li>
+    <li><b>Mestské teplárne a primátori</b> — Partizánske (už v príprave s EIB TARGET, chce
+    odpadové teplo), Spišská Nová Ves (čerstvá koncepcia tepelnej energetiky z roku 2025),
+    mestá s aquaparkom pre pilot.</li>
+    <li><b>ESCO spoločnosti</b> — ESCO Slovensko (SPP + ČEZ), KOOR, Veolia Energia
+    Slovensko: mohli by postaviť a prevádzkovať tepelnú časť, kým my prevádzkujeme výpočty.</li>
+  </ul>
+  <h3>Inštitucionálny kapitál (veľký projekt)</h3>
+  <ul>
+    <li><b>EIB</b> (ELENA / TARGET / seniorný dlh), <b>EBRD</b> (skúsenosti s teplárenstvom
+    v strednej Európe), <b>Slovak Investment Holding</b>.</li>
+    <li><b>Energetické a infraštruktúrne fondy Wood &amp; Company</b> a <b>Eterus Capital</b>
+    — stredoeurópske energetické aktíva sú ich doména.</li>
+    <li><b>Octopus Energy Generation</b> — podpísali šek na 200 mil. £ pre Deep Green;
+    stredoeurópska verzia s teplom oceneným podľa plynu je pre nich rozšírením tézy, nie
+    novým nápadom.</li>
+  </ul>
+  <h3>Rizikový a rastový kapitál (pilot + cloudová vrstva)</h3>
+  <ul>
+    <li><b>Contrarian Ventures</b> (Vilnius, výhradne energetická transformácia, investuje v
+    strednej Európe), <b>2150</b>, <b>Extantia</b>, <b>World Fund</b>.</li>
+    <li><b>Neulogy Ventures</b>, <b>ZAKA VC</b>, <b>Vision Ventures</b> — slovenský a
+    stredoeurópsky pre-seed; <b>Crowdberry</b> na komunitné/mestské spoluinvestičné kolo
+    (zároveň politické krytie v hostiteľskom meste); <b>Sandberg Capital</b> na cloudovú
+    vrstvu v rastovej fáze.</li>
+  </ul>
+  <h3>Čitatelia a spojenci</h3>
+  <p class="small">Programová kancelária SIEA pre účinné vykurovanie · sekcia regulačnej
+  politiky ÚRSO · sekcia energetiky MH SR (správcovia schémy štátnej pomoci) · Bankwatch a
+  organizácie pre energetickú transformáciu, ktoré hľadajú neplynový vlajkový projekt v
+  teplárenstve · komunita slovenských hostingových zakladateľov pre distribúciu výpočtového
+  výkonu.</p>
+</section>
+
+<section id="sk-roadmap">
+  <h2><span class="n">09</span>Plán postupu</h2>
+  <div class="tblwrap"><table>
+    <tr><th>Fáza</th><th>Kedy</th><th>Čo</th><th>Kapitál</th></tr>
+    <tr><td>Overenie</td><td>Dni 0–90</td><td>Teaser a stretnutia (MHTH, 2 teplárne, 1 aquapark); právne stanovisko k štátnej pomoci a licenciám; skríning 16 sústav CZT; term sheet na pilot; 10 rozhovorov o predpredaji výpočtového výkonu; rozhodnutie ísť/neísť podľa kritérií zastavenia</td><td>&lt;30 tis. €</td></tr>
+    <tr><td>Pilot</td><td>Mesiace 3–15</td><td>Kontajner 300 kW na plavárni; odmeraná sezóna tepla a predaného výkonu; žiadosť ELENA/TARGET s vybraným mestom</td><td>~600 tis. € pre-seed</td></tr>
+    <tr><td>Príprava</td><td>Mesiace 12–30</td><td>Zabezpečený pozemok, rozpracované pripojenie do siete, podpísaná zmluva o výkupe tepla, pridelené dotácie, uzavreté projektové financovanie</td><td>2–4 mil. € na prípravu</td></tr>
+    <tr><td>Výstavba</td><td>Mesiace 24–48</td><td>Zariadenie 5 MW a tepelná časť; postupné vystrojovanie sál podľa predpredaných LOI</td><td>~50 mil. € projektové financovanie</td></tr>
+  </table></div>
+</section>
+
+<section id="sk-risks">
+  <h2><span class="n">10</span>Riziká a kritériá zastavenia — otvorene</h2>
+  <ul>
+    <li><b>Regulačné odčerpanie marže (najpravdepodobnejšie, najmenej viditeľné):</b>
+    nákladový audit ÚRSO odovzdá rozdiel v cene tepla odberateľovi. <i>Zastaviť, ak</i>
+    cenová vyhláška model neumožňuje — overiť právnym stanoviskom v 1. mesiaci, pred
+    založením firmy.</li>
+    <li><b>Fronta na pripojenie:</b> ak pripojenie ≥5 MW presahuje 4 roky na každej
+    posudzovanej lokalite, veľký projekt je príbehom na rok 2030. <i>Zastaviť veľký
+    projekt;</i> pilot prežíva.</li>
+    <li><b>Slabý dopyt po výpočtovom výkone:</b> rozprávanie o suverenite sa nerovná
+    objednávkam. <i>Zastaviť, ak</i> po šiestich mesiacoch predpredaja je menej ako 1 MW v
+    LOI.</li>
+    <li><b>Pád ceny tepla:</b> dostatočne lacný plyn stiahne referenčných 93 € k 60 € a s
+    ním aj maržu na teple. Opatrenie: teplo nikdy neupisujeme nad 20 % tržieb.</li>
+    <li><b>Štát to skopíruje:</b> MHTH si to po overení urobí sám za štátne peniaze.
+    Opatrenie: rýchlosť, prevádzkové know-how a byť partnerom v joint venture, ktorého
+    aj tak potrebujú.</li>
+    <li><b>Odmietnutie odberu:</b> ak MHTH a dve mestské teplárne odmietnu cenu nad
+    45 €/MWh<sub>t</sub> → slovenská prirážka je len teoretická, celá téza sa vracia k
+    severskej ekonomike a končíme.</li>
+  </ul>
+</section>
+
+<section id="sk-sources">
+  <h2><span class="n">11</span>Zdroje</h2>
+  <ul class="srcs">
+    <li>Infomaniak D4: <a href="https://news.infomaniak.com/en/infomaniak-inaugurates-a-revolutionary-data-center-that-recovers-100-of-its-energy-for-building-heating/">oznámenie Infomaniaku</a> · <a href="https://www.siemens.com/en-us/content/infomaniak-d4-data-center/">prípadová štúdia Siemens</a> · <a href="https://www.tranetechnologies.com/en/index/blog/customer-stories/sustainable-digital-infrastructure-infomaniak-data-center.html">referencia tepelných čerpadiel Trane</a></li>
+    <li>Ceny tepla na Slovensku: <a href="https://www.urso.gov.sk/pokles-cien-tepla-v-roku-2025-napriek-zdrazeniu-prepravy-plynu/">ÚRSO — ceny tepla 2025</a> · <a href="https://www.urso.gov.sk/ceny-energii-na-rok-2026/">ÚRSO — ceny energií na rok 2026</a> · <a href="https://spectator.sme.sk/business/c/living-in-slovakia-your-2026-energy-bill-depends-on-one-thing-state-aid">Slovak Spectator o dotáciách v roku 2026</a></li>
+    <li>Porovnateľná ekonomika: <a href="https://www.eurelectric.org/stories/stockholm-exergi-data-parks-shows-the-potential-for-scaling-the-reuse-of-waste-heat-when-it-becomes-a-tradable-product/">Stockholm Exergi Data Parks</a> · <a href="https://octopus.energy/press/deep-green-investment/">Octopus × Deep Green, 200 mil. £</a> · <a href="https://www.sciencedirect.com/science/article/pii/S1364032125005362">Odpadové teplo z DC pre CZT — prehľad 2025</a></li>
+    <li>Regulácia: <a href="https://eur-lex.europa.eu/eli/dir/2023/1791/oj/eng">smernica EED (EÚ) 2023/1791</a> · <a href="https://www.slov-lex.sk/ezbierky/pravne-predpisy/SK/ZZ/2004/657/">zákon č. 657/2004 Z. z. o tepelnej energetike</a> · <a href="https://www.urso.gov.sk/povolenia-a-oznamenia/">ÚRSO — povolenia a oznámenia</a></li>
+    <li>Financovanie: <a href="https://www.rescoop.eu/policy/financing-tracker/modernisation-fund/slovakia-modernisation-func">Modernizačný fond — Slovensko</a> · <a href="https://www.siea.sk/strukturalne-fondy-eu/program-slovensko/vyzvy-implementovane-siea/">SIEA — výzvy Programu Slovensko</a> · <a href="https://eurofondy.gov.sk/wp-content/uploads/2024/01/Schema_statnej_pomoci_na_podporu_investicii_do_energeticky_ucinnych_systemov_centralizovaneho_zasobovania_teplom_alebo_chladom.pdf">schéma štátnej pomoci pre účinné CZT (PDF)</a> · <a href="https://www.eib.org/en/products/advisory-services/elena/index.htm">EIB ELENA</a> · <a href="https://bankwatch.org/blog/how-a-pioneering-slovak-town-is-modernising-its-district-heating-system">prípad Partizánske / TARGET</a> · <a href="https://bankwatch.org/blog/unfit-for-55-how-eu-climate-money-is-supporting-gas-fired-heating-in-slovakia">Bankwatch o plyne v slovenskom teplárenstve</a></li>
+    <li>Trh: <a href="https://www.datacentermap.com/slovakia/">Data Center Map — Slovensko</a> · <a href="https://reports.turnerandtownsend.com/data-centre-construction-cost-index-2025/data-centre-cost-trends">index nákladov výstavby DC, Turner &amp; Townsend 2025</a></li>
+  </ul>
+</section>
+
+<footer>
+  Podklad vychádza zo súkromného výskumného korpusu (fields/datacenter-heat-district-energy,
+  plays/sk-dc-heat-utility), august 2026. Všetky finančné údaje sú odhady od stola určené na
+  posúdenie a diskusiu — nie sú ponukou, projektovou dokumentáciou ani investičným
+  poradenstvom.
+</footer>
+</div>
+
+<script>
+(function(){
+  var buttons = document.querySelectorAll('.lang button');
+  function apply(lang){
+    document.body.setAttribute('data-lang', lang);
+    document.documentElement.lang = lang;
+    buttons.forEach(function(b){
+      b.setAttribute('aria-pressed', String(b.dataset.setLang === lang));
+    });
+    try{ localStorage.setItem('hc-lang', lang); }catch(e){}
+  }
+  buttons.forEach(function(b){
+    b.addEventListener('click', function(){
+      var target = b.dataset.setLang;
+      // keep the reader roughly in place: map #anchor across languages
+      var hash = location.hash.replace('#','');
+      apply(target);
+      if(hash){
+        var id = target === 'sk'
+          ? (hash.indexOf('sk-') === 0 ? hash : 'sk-' + hash)
+          : hash.replace(/^sk-/, '');
+        var el = document.getElementById(id);
+        if(el){ el.scrollIntoView(); history.replaceState(null,'','#'+id); }
+      }
+    });
+  });
+  apply(document.body.getAttribute('data-lang') || 'en');
+})();
+</script>
 </body>
 </html>

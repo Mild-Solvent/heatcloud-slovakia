@@ -20,3 +20,15 @@ notes). Edit there first; this site is the presentation layer.
 
 All figures are desk estimates for evaluation — not engineering, an offer, or
 investment advice.
+
+## Languages
+
+The site ships English and Slovak side by side, toggled by the EN/SK button in
+the nav. Both versions live in `index.html` as parallel `[data-pane]` blocks —
+Slovak section ids are prefixed `sk-`, and the toggle maps the current anchor
+across languages so the reader keeps their place. The choice persists in
+`localStorage`; first-time visitors get Slovak if their browser language is `sk`.
+
+Editing rule: change both panes, or neither. The Slovak text is a real
+translation using domestic terminology (CZT, teplárne, ÚRSO, odpadové teplo),
+not a string-for-string swap of the English.
