@@ -5,6 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>HeatCloud Slovakia — datacenters that heat towns</title>
 <meta name="description" content="Sovereign cloud datacenters attached to Slovakia's district heating networks: compute at market rates, recovered heat at gas-minus-20%, EU decarbonisation funding on the thermal capex.">
+<link rel="canonical" href="https://mild-solvent.github.io/heatcloud-slovakia/">
+<meta name="theme-color" content="#12161c">
+<meta name="color-scheme" content="light dark">
+
+<!-- Open Graph / link previews -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HeatCloud Slovakia">
+<meta property="og:url" content="https://mild-solvent.github.io/heatcloud-slovakia/">
+<meta property="og:title" content="Datacenters that heat towns.">
+<meta property="og:description" content="Slovak district heat is gas-fired at €93.4/MWh. Recovered datacenter heat costs ~€55/MWh. A research &amp; pitch dossier on the spread — deploy model, EU funding stack, investors.">
+<meta property="og:image" content="https://mild-solvent.github.io/heatcloud-slovakia/assets/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="HeatCloud Slovakia — datacenters that heat towns. €93.4/MWh gas heat today versus €55/MWh recovered heat, ~5,000 flats per 5 MW.">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="sk_SK">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Datacenters that heat towns.">
+<meta name="twitter:description" content="Slovak district heat is gas-fired at €93.4/MWh. Recovered datacenter heat costs ~€55/MWh. Deploy model, EU funding stack, investors.">
+<meta name="twitter:image" content="https://mild-solvent.github.io/heatcloud-slovakia/assets/og.png">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <style>
 :root{
   --bg:#f7f5f0; --panel:#ffffff; --ink:#1c2430; --muted:#5c6672;
@@ -18,13 +43,38 @@
 *{box-sizing:border-box} html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Georgia,'Times New Roman',serif}
 a{color:var(--accent2)} h1,h2,h3{font-family:'Helvetica Neue',Arial,sans-serif;line-height:1.2}
-nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:9;
-  display:flex;align-items:center;gap:.5rem;padding:.55rem 1rem;font-family:Arial,sans-serif;font-size:.82rem}
-.navlinks{display:flex;align-items:center;gap:.2rem;overflow-x:auto;flex:1 1 auto;min-width:0;
-  scrollbar-width:thin;-webkit-overflow-scrolling:touch}
-nav a{color:var(--muted);text-decoration:none;padding:.25rem .6rem;border-radius:99px;white-space:nowrap}
-nav a:hover{color:var(--ink);background:var(--chip)}
+/* ---- header: brand | centred links | controls ---- */
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:20;
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.6rem;
+  padding:.5rem .9rem;font-family:Arial,sans-serif;font-size:.82rem}
+.brand{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--ink);
+  justify-self:start;padding:.15rem;border-radius:8px}
+.brand svg{width:30px;height:30px;flex:none;display:block}
+.brandtext{display:flex;flex-direction:column;line-height:1.05}
+.brandtext b{font:700 .82rem/1 'Helvetica Neue',Arial,sans-serif;letter-spacing:.12em}
+.brandtext i{font:400 .58rem/1 Arial,sans-serif;letter-spacing:.24em;color:var(--accent);font-style:normal;margin-top:.18rem}
+.navlinks{display:flex;align-items:center;justify-content:center;gap:.15rem;overflow:hidden;min-width:0}
+nav a.sec{color:var(--muted);text-decoration:none;padding:.3rem .55rem;border-radius:99px;white-space:nowrap}
+nav a.sec:hover{color:var(--ink);background:var(--chip)}
+.navright{display:flex;align-items:center;gap:.4rem;justify-self:end}
 .lang{display:flex;gap:2px;background:var(--chip);border-radius:99px;padding:2px;flex:0 0 auto}
+.burger{display:none;flex:none;width:38px;height:34px;border:1px solid var(--line);background:transparent;
+  border-radius:9px;cursor:pointer;padding:0;align-items:center;justify-content:center}
+.burger span{display:block;position:relative;width:16px;height:1.6px;background:var(--ink);border-radius:2px}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:16px;height:1.6px;
+  background:var(--ink);border-radius:2px;transition:transform .18s ease,top .18s ease}
+.burger span::before{top:-5px} .burger span::after{top:5px}
+nav.compact .burger{display:flex}
+nav.compact{grid-template-columns:1fr auto}
+nav.compact .navlinks{position:absolute;top:100%;left:0;right:0;display:none;
+  flex-direction:column;align-items:stretch;justify-content:flex-start;gap:0;overflow:auto;
+  max-height:70vh;background:var(--bg);border-bottom:1px solid var(--line);
+  padding:.4rem .6rem .7rem;box-shadow:0 14px 30px rgba(0,0,0,.16)}
+nav.compact .navlinks.open{display:flex}
+nav.compact .navlinks a.sec{padding:.7rem .8rem;border-radius:9px;font-size:.95rem}
+nav.compact .burger[aria-expanded="true"] span{background:transparent}
+nav.compact .burger[aria-expanded="true"] span::before{top:0;transform:rotate(45deg)}
+nav.compact .burger[aria-expanded="true"] span::after{top:0;transform:rotate(-45deg)}
 .lang button{font:600 .74rem/1 Arial,sans-serif;letter-spacing:.06em;border:0;cursor:pointer;
   padding:.35rem .7rem;border-radius:99px;background:transparent;color:var(--muted)}
 .lang button[aria-pressed="true"]{background:var(--accent);color:#fff}
@@ -58,6 +108,39 @@ figure{margin:1.4rem 0} figcaption{font-size:.82rem;color:var(--muted);margin-to
 footer{padding:2rem 0;color:var(--muted);font-size:.85rem}
 .srcs{font-size:.85rem;color:var(--muted)} .srcs li{margin:.2rem 0}
 
+/* ---- wide content scrolls inside itself, never the page ---- */
+.tblwrap table{min-width:560px}
+.figscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px}
+.figscroll .flow{min-width:620px}
+/* edge shadows, visible only while there is more content to scroll to */
+.tblwrap,.figscroll{background-color:var(--panel);
+  background-image:linear-gradient(to right,var(--panel),rgba(128,128,128,0)),
+    linear-gradient(to left,var(--panel),rgba(128,128,128,0)),
+    radial-gradient(farthest-side at 0 50%,rgba(0,0,0,.20),transparent),
+    radial-gradient(farthest-side at 100% 50%,rgba(0,0,0,.20),transparent);
+  background-position:0 0,100% 0,0 0,100% 0;background-repeat:no-repeat;
+  background-size:34px 100%,34px 100%,14px 100%,14px 100%;
+  background-attachment:local,local,scroll,scroll}
+
+/* ---- mobile ---- */
+@media (max-width:760px){
+  body{font-size:15.5px}
+  .wrap{padding:0 1rem 3.5rem}
+  header.hero{padding:2.6rem 0 1.8rem}
+  section{padding:2rem 0 .5rem;scroll-margin-top:3.2rem}
+  h2{font-size:1.34rem}
+  .lede{font-size:1.05rem}
+  .big{font-size:1.65rem}
+  .grid{grid-template-columns:1fr;gap:.75rem}
+  th,td{padding:.5rem .65rem}
+  .lang button{padding:.45rem .75rem}
+  ul,ol{padding-left:1.1rem}
+}
+@media (max-width:420px){
+  .brandtext{display:none}
+  nav{padding:.45rem .7rem}
+}
+
 /* language panes */
 [data-pane]{display:none}
 body[data-lang="en"] [data-pane="en"],
@@ -77,24 +160,43 @@ body[data-lang="sk"] nav [data-pane="sk"]{display:contents}
 }catch(e){}})();
 </script>
 
-<nav>
-  <div class="navlinks">
+<nav id="nav">
+  <a class="brand" href="#" aria-label="HeatCloud Slovakia">
+    <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+      <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-opacity=".38" stroke-width="1.7"/>
+      <g stroke="#3fb5b5" stroke-width="2.5" stroke-linecap="round">
+        <line x1="12.96" y1="38.4" x2="35.04" y2="38.4"/>
+        <line x1="14.30" y1="33.4" x2="33.70" y2="33.4"/>
+        <line x1="15.66" y1="28.3" x2="32.34" y2="28.3"/>
+      </g>
+      <g stroke="#e8823f" stroke-width="2.4" stroke-linecap="round" fill="none">
+        <path d="M14.4 21.1 C17.6 23.5, 20.8 23.5, 24 21.1 C27.2 18.7, 30.4 18.7, 33.6 21.1"/>
+        <path d="M15.9 14.4 C18.6 16.3, 21.3 16.3, 24 14.4 C26.7 12.5, 29.4 12.5, 32.1 14.4"/>
+      </g>
+    </svg>
+    <span class="brandtext"><b>HEATCLOUD</b><i>SLOVAKIA</i></span>
+  </a>
+  <div class="navlinks" id="navlinks">
   <span data-pane="en">
-    <a href="#thesis">Thesis</a><a href="#model">How it works</a><a href="#market">Market</a>
-    <a href="#numbers">The numbers</a><a href="#funding">EU funding</a><a href="#requirements">Requirements</a>
-    <a href="#wedge">The wedge</a><a href="#investors">Investors</a><a href="#roadmap">Roadmap</a>
-    <a href="#risks">Risks</a><a href="#sources">Sources</a>
+    <a class="sec" href="#thesis">Thesis</a><a class="sec" href="#model">How it works</a><a class="sec" href="#market">Market</a>
+    <a class="sec" href="#numbers">The numbers</a><a class="sec" href="#funding">EU funding</a><a class="sec" href="#requirements">Requirements</a>
+    <a class="sec" href="#wedge">The wedge</a><a class="sec" href="#investors">Investors</a><a class="sec" href="#roadmap">Roadmap</a>
+    <a class="sec" href="#risks">Risks</a><a class="sec" href="#sources">Sources</a>
   </span>
   <span data-pane="sk">
-    <a href="#sk-thesis">Téza</a><a href="#sk-model">Ako to funguje</a><a href="#sk-market">Trh</a>
-    <a href="#sk-numbers">Čísla</a><a href="#sk-funding">Eurofondy</a><a href="#sk-requirements">Požiadavky</a>
-    <a href="#sk-wedge">Prvý krok</a><a href="#sk-investors">Investori</a><a href="#sk-roadmap">Plán</a>
-    <a href="#sk-risks">Riziká</a><a href="#sk-sources">Zdroje</a>
+    <a class="sec" href="#sk-thesis">Téza</a><a class="sec" href="#sk-model">Ako to funguje</a><a class="sec" href="#sk-market">Trh</a>
+    <a class="sec" href="#sk-numbers">Čísla</a><a class="sec" href="#sk-funding">Eurofondy</a><a class="sec" href="#sk-requirements">Požiadavky</a>
+    <a class="sec" href="#sk-wedge">Prvý krok</a><a class="sec" href="#sk-investors">Investori</a><a class="sec" href="#sk-roadmap">Plán</a>
+    <a class="sec" href="#sk-risks">Riziká</a><a class="sec" href="#sk-sources">Zdroje</a>
   </span>
   </div>
-  <div class="lang" role="group" aria-label="Language / Jazyk">
-    <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
-    <button type="button" data-set-lang="sk" aria-pressed="false">SK</button>
+  <div class="navright">
+    <div class="lang" role="group" aria-label="Language / Jazyk">
+      <button type="button" data-set-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-set-lang="sk" aria-pressed="false">SK</button>
+    </div>
+    <button type="button" class="burger" id="burger" aria-expanded="false"
+            aria-controls="navlinks" aria-label="Menu"><span></span></button>
   </div>
 </nav>
 
@@ -139,7 +241,7 @@ body[data-lang="sk"] nav [data-pane="sk"]{display:contents}
 <section id="model">
   <h2><span class="n">02</span>How it works</h2>
   <figure>
-  <svg class="flow" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Energy flow diagram">
+  <div class="figscroll"><svg class="flow" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Energy flow diagram">
     <style>
       .b{fill:none;stroke:currentColor;stroke-width:1.4}
       .t{font:600 14px Arial;fill:currentColor}
@@ -175,7 +277,7 @@ body[data-lang="sk"] nav [data-pane="sk"]{display:contents}
     <text class="s" x="340" y="245" text-anchor="middle">EU funds (Modernisation Fund, Program Slovensko, ELENA)</text>
     <path class="ar" d="M480,238 C520,238 560,225 580,215"/>
     <text class="s" x="600" y="255" text-anchor="start">→ 30–45% grant on thermal capex</text>
-  </svg>
+  </svg></div>
   <figcaption>Reference 5 MW deployment. Delivered heat = recovered heat × COP/(COP−1) ≈ 53 GWh_th/yr.</figcaption>
   </figure>
   <p>The governing arithmetic is one line: delivered waste heat costs
@@ -435,7 +537,7 @@ body[data-lang="sk"] nav [data-pane="sk"]{display:contents}
 <section id="sk-model">
   <h2><span class="n">02</span>Ako to funguje</h2>
   <figure>
-  <svg class="flow" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma toku energie">
+  <div class="figscroll"><svg class="flow" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma toku energie">
     <style>
       .b{fill:none;stroke:currentColor;stroke-width:1.4}
       .t{font:600 14px Arial;fill:currentColor}
@@ -471,7 +573,7 @@ body[data-lang="sk"] nav [data-pane="sk"]{display:contents}
     <text class="s" x="340" y="245" text-anchor="middle">Eurofondy (Modernizačný fond, Program Slovensko, ELENA)</text>
     <path class="ar" d="M480,238 C520,238 560,225 580,215"/>
     <text class="s" x="600" y="255" text-anchor="start">→ 30–45 % dotácia na tepelnú časť</text>
-  </svg>
+  </svg></div>
   <figcaption>Referenčné nasadenie 5 MW. Dodané teplo = získané teplo × COP/(COP−1) ≈ 53 GWh<sub>t</sub>/rok.</figcaption>
   </figure>
   <p>Rozhodujúca aritmetika je jediný riadok: dodané odpadové teplo stojí
@@ -733,6 +835,46 @@ body[data-lang="sk"] nav [data-pane="sk"]{display:contents}
     });
   });
   apply(document.body.getAttribute('data-lang') || 'en');
+
+  // ---- header: collapse to a burger only when the links cannot fit ----
+  var nav = document.getElementById('nav'),
+      links = document.getElementById('navlinks'),
+      burger = document.getElementById('burger');
+
+  function closeMenu(){
+    links.classList.remove('open');
+    burger.setAttribute('aria-expanded','false');
+  }
+
+  function layout(){
+    closeMenu();
+    nav.classList.remove('compact');
+    // measured with the inline layout applied: does the visible link row overflow?
+    var overflows = links.scrollWidth > links.clientWidth + 1;
+    if(overflows || window.innerWidth < 720) nav.classList.add('compact');
+  }
+
+  burger.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  links.addEventListener('click', function(e){ if(e.target.closest('a')) closeMenu(); });
+  document.addEventListener('click', function(e){
+    if(nav.classList.contains('compact') && !nav.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
+
+  var t; window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(layout, 120); });
+  // re-measure after a language switch: Slovak labels are a different width
+  buttons.forEach(function(b){ b.addEventListener('click', layout); });
+  document.querySelector('.brand').addEventListener('click', function(e){
+    e.preventDefault(); closeMenu();
+    window.scrollTo({top:0, behavior:'smooth'});
+    history.replaceState(null,'',location.pathname);
+  });
+  layout();
+  window.addEventListener('load', layout);   // fonts can change link widths
 })();
 </script>
 </body>
