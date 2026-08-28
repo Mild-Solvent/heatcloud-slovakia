@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeatCloud Slovakia — datacenters that heat towns</title>
+<meta name="description" content="Sovereign cloud datacenters attached to Slovakia's district heating networks: compute at market rates, recovered heat at gas-minus-20%, EU decarbonisation funding on the thermal capex.">
+<style>
+:root{
+  --bg:#f7f5f0; --panel:#ffffff; --ink:#1c2430; --muted:#5c6672;
+  --accent:#c25e1e; --accent2:#0e6e6e; --line:#e3ddd2; --warn:#8a1f1f;
+  --chip:#efe9de;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#12161c; --panel:#1a2028; --ink:#e8e4dc; --muted:#98a1ab;
+    --accent:#e8823f; --accent2:#3fb5b5; --line:#2a323c; --warn:#e06c6c; --chip:#232b35; }
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 Georgia,'Times New Roman',serif}
+a{color:var(--accent2)} h1,h2,h3{font-family:'Helvetica Neue',Arial,sans-serif;line-height:1.2}
+nav{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--line);z-index:9;
+  display:flex;gap:.2rem;overflow-x:auto;padding:.55rem 1rem;font-family:Arial,sans-serif;font-size:.82rem}
+nav a{color:var(--muted);text-decoration:none;padding:.25rem .6rem;border-radius:99px;white-space:nowrap}
+nav a:hover{color:var(--ink);background:var(--chip)}
+.wrap{max-width:880px;margin:0 auto;padding:0 1.2rem 5rem}
+header.hero{padding:4.5rem 0 2.5rem;border-bottom:1px solid var(--line)}
+.kicker{font-family:Arial,sans-serif;letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:var(--accent)}
+h1{font-size:clamp(2rem,5vw,3.1rem);margin:.4rem 0 .8rem}
+.lede{font-size:1.15rem;color:var(--muted);max-width:44rem}
+section{padding:2.6rem 0 .6rem;border-bottom:1px solid var(--line)}
+h2{font-size:1.55rem;margin:0 0 1rem}
+h2 .n{color:var(--accent);font-size:.9rem;vertical-align:.35em;margin-right:.5rem}
+h3{font-size:1.05rem;margin:1.6rem 0 .5rem}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:1.2rem 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem}
+.card b{font-family:Arial,sans-serif;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase;color:var(--accent2)}
+.big{font-family:'Helvetica Neue',Arial,sans-serif;font-size:1.9rem;font-weight:700;margin:.2rem 0}
+.small{font-size:.86rem;color:var(--muted)}
+table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.92rem;background:var(--panel)}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+th,td{padding:.55rem .8rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-family:Arial,sans-serif;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+tr:last-child td{border-bottom:none}
+.callout{border-left:4px solid var(--accent);background:var(--panel);padding:.9rem 1.1rem;border-radius:0 10px 10px 0;margin:1.3rem 0}
+.callout.warn{border-left-color:var(--warn)}
+.formula{font-family:'Courier New',monospace;background:var(--chip);padding:.15rem .45rem;border-radius:5px;font-size:.9em}
+ul,ol{padding-left:1.3rem} li{margin:.35rem 0}
+.tag{display:inline-block;background:var(--chip);border-radius:99px;padding:.1rem .6rem;font-family:Arial,sans-serif;font-size:.75rem;color:var(--muted);margin:.1rem .15rem .1rem 0}
+figure{margin:1.4rem 0} figcaption{font-size:.82rem;color:var(--muted);margin-top:.4rem}
+.flow{width:100%;height:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px}
+footer{padding:2rem 0;color:var(--muted);font-size:.85rem}
+.srcs{font-size:.85rem;color:var(--muted)} .srcs li{margin:.2rem 0}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#thesis">Thesis</a><a href="#model">How it works</a><a href="#market">Market</a>
+  <a href="#numbers">The numbers</a><a href="#funding">EU funding</a><a href="#requirements">Requirements</a>
+  <a href="#wedge">The wedge</a><a href="#investors">Investors</a><a href="#roadmap">Roadmap</a>
+  <a href="#risks">Risks</a><a href="#sources">Sources</a>
+</nav>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">Research &amp; pitch dossier · Slovakia · August 2026</div>
+  <h1>Datacenters that heat towns.</h1>
+  <p class="lede">HeatCloud builds Infomaniak-style cloud datacenters attached to Slovakia's
+  gas-locked district heating networks — selling compute at market rates, recovered
+  heat at gas-minus-20%, with EU decarbonisation money covering a third of the thermal capex.</p>
+  <p><span class="tag">sovereign cloud</span><span class="tag">district heating</span>
+  <span class="tag">waste-heat recovery</span><span class="tag">EED 2023/1791</span>
+  <span class="tag">Modernisation Fund</span></p>
+</header>
+
+<section id="thesis">
+  <h2><span class="n">01</span>Thesis</h2>
+  <p>Every megawatt-hour of electricity a datacenter consumes leaves the building as
+  30–45&nbsp;°C heat. In Geneva, Infomaniak's D4 facility has been re-injecting
+  <b>~95% of its energy</b> into the canton's district network as 67&nbsp;°C heat since
+  November 2024 — enough for ~6,000 homes. The engineering is proven and off-the-shelf
+  (Trane heat pumps, Siemens controls).</p>
+  <p>Slovakia is an unusually good place to copy it, for one blunt reason:
+  <b>Slovak district heat is gas-fired and expensive</b>. The regulated variable
+  component averaged <b>€93.4/MWh in 2025</b>, while recovered datacenter heat can be
+  delivered for roughly <b>€55/MWh</b> all-in. In Stockholm — the mature market —
+  waste heat fetches only €35–45/MWh. The spread that is a rounding error in the
+  Nordics is a real margin in Slovakia, and the buyer is under EU legal pressure to
+  decarbonise.</p>
+  <div class="callout">
+    <b>The honest framing:</b> heat is 15–20% of revenue — a margin enhancer, a
+    permitting asset and a subsidy unlock. The core business is a profitable
+    sovereign cloud/colocation operation in an underserved market (~30&nbsp;MW in the
+    whole country, no hyperscaler region). The heat story makes that datacenter
+    cheaper to build, easier to permit, and politically wanted. Infomaniak sequenced
+    it the same way: cloud revenue first, heat second.
+  </div>
+</section>
+
+<section id="model">
+  <h2><span class="n">02</span>How it works</h2>
+  <figure>
+  <svg class="flow" viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Energy flow diagram">
+    <style>
+      .b{fill:none;stroke:currentColor;stroke-width:1.4;rx:8}
+      .t{font:600 14px Arial;fill:currentColor}
+      .s{font:11.5px Arial;fill:currentColor;opacity:.65}
+      .ar{stroke:currentColor;stroke-width:1.6;fill:none;marker-end:url(#a)}
+      .hot{stroke:#c25e1e}
+      .money{font:600 12px Arial;fill:#0e6e6e}
+    </style>
+    <defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+      <path d="M0,0 L8,4.5 L0,9" fill="none" stroke="currentColor" stroke-width="1.4"/></marker></defs>
+    <rect class="b" x="20" y="110" width="150" height="80" rx="8"/>
+    <text class="t" x="95" y="145" text-anchor="middle">Grid power</text>
+    <text class="s" x="95" y="165" text-anchor="middle">~50 GWh/yr</text>
+    <rect class="b" x="250" y="90" width="180" height="120" rx="8"/>
+    <text class="t" x="340" y="130" text-anchor="middle">Datacenter</text>
+    <text class="s" x="340" y="150" text-anchor="middle">5 MW IT · water-cooled</text>
+    <text class="s" x="340" y="168" text-anchor="middle">colo + sovereign cloud</text>
+    <rect class="b" x="510" y="90" width="150" height="120" rx="8"/>
+    <text class="t" x="585" y="130" text-anchor="middle">Heat pumps</text>
+    <text class="s" x="585" y="150" text-anchor="middle">COP ≈ 4</text>
+    <text class="s" x="585" y="168" text-anchor="middle">40 °C → 75 °C</text>
+    <rect class="b" x="720" y="90" width="120" height="120" rx="8"/>
+    <text class="t" x="780" y="130" text-anchor="middle">Town CZT</text>
+    <text class="s" x="780" y="150" text-anchor="middle">network</text>
+    <text class="s" x="780" y="168" text-anchor="middle">~5,000 flats</text>
+    <path class="ar" d="M170,150 H244"/>
+    <path class="ar hot" d="M430,150 H504"/>
+    <text class="s" x="467" y="140" text-anchor="middle">40–45 °C</text>
+    <path class="ar hot" d="M660,150 H714"/>
+    <text class="s" x="687" y="140" text-anchor="middle">75 °C</text>
+    <text class="money" x="340" y="60" text-anchor="middle">€7–10M/yr compute revenue</text>
+    <path class="ar" d="M340,90 V70" transform="rotate(180 340 80)"/>
+    <text class="money" x="780" y="60" text-anchor="middle">€3.7M/yr heat @ €70/MWh</text>
+    <text class="s" x="340" y="245" text-anchor="middle">EU funds (Modernisation Fund, Program Slovensko, ELENA)</text>
+    <path class="ar" d="M480,238 C520,238 560,225 580,215"/>
+    <text class="s" x="620" y="255" text-anchor="start">→ 30–45% grant on thermal capex</text>
+  </svg>
+  <figcaption>Reference 5 MW deployment. Delivered heat = recovered heat × COP/(COP−1) ≈ 53 GWh_th/yr.</figcaption>
+  </figure>
+  <p>The governing arithmetic is one line: delivered waste heat costs
+  <span class="formula">P_elec ÷ (COP − 1)</span> per MWh<sub>th</sub> plus capex
+  recovery — the heat itself is free; you pay only for the temperature lift. At
+  €165/MWh industrial power and COP 4 that is ~€55/MWh<sub>th</sub> against a €93
+  gas-set reference. Selling at <b>€70/MWh</b>, the town saves ~25% and decarbonises;
+  we keep ~€15/MWh on 53 GWh.</p>
+</section>
+
+<section id="market">
+  <h2><span class="n">03</span>Market</h2>
+  <div class="grid">
+    <div class="card"><b>Slovak DC market</b><div class="big">~30 MW</div>
+      <div class="small">~14 facilities, no hyperscaler region. Nearest cloud regions: Vienna, Warsaw. Underserved sovereignty/GDPR demand.</div></div>
+    <div class="card"><b>District heating reach</b><div class="big">1.8M people</div>
+      <div class="small">MH Teplárenský Holding alone: 6 cities, ~320,000 households. Mostly gas-fired, under decarbonisation pressure.</div></div>
+    <div class="card"><b>SK heat price (2025)</b><div class="big">€93.4/MWh</div>
+      <div class="small">Average regulated variable component (ÚRSO). Fixed component €235.90/kW/yr. Avg household pays ~€936/yr.</div></div>
+    <div class="card"><b>Nordic benchmark</b><div class="big">€35–45/MWh</div>
+      <div class="small">What Stockholm/Helsinki pay for DC heat — the Slovak gas premium is the whole point of doing this here.</div></div>
+  </div>
+  <h3>Why now — four clocks that all started after 2023</h3>
+  <ol>
+    <li><b>EED 2023/1791</b>: every EU datacenter &gt;1 MW must run a waste-heat
+    cost–benefit analysis and implement recovery unless infeasible; ≥500 kW must report
+    energy KPIs to an EU database. France already made recovery mandatory.</li>
+    <li><b>Gas shock</b>: Slovakia lost cheap Russian transit; its heat sector is
+    politically desperate for non-gas sources.</li>
+    <li><b>Modernisation Fund deadline</b>: ~€3.89bn Slovak envelope must be spent by
+    2030 — and is currently embarrassing Brussels by part-flowing to gas projects.</li>
+    <li><b>AI inference demand</b> made small-market datacenters investable again.</li>
+  </ol>
+</section>
+
+<section id="numbers">
+  <h2><span class="n">04</span>The numbers — reference 5 MW deployment</h2>
+  <p class="small">Desk estimates for evaluation, not engineering. Every figure is
+  sourced or derived in the research corpus; assumptions marked.</p>
+  <h3>Energy balance</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Quantity</th><th>Value</th><th>Basis</th></tr>
+    <tr><td>IT load</td><td>5.0 MW</td><td>design choice</td></tr>
+    <tr><td>Facility electricity (PUE ~1.15)</td><td>~50 GWh/yr</td><td>water-cooled, Infomaniak-class</td></tr>
+    <tr><td>Recoverable heat @ 40–45 °C</td><td>~40 GWh<sub>th</sub>/yr</td><td>~90% of IT energy</td></tr>
+    <tr><td>Heat-pump COP (40→75 °C)</td><td>3.5–4.0</td><td>literature range 3.2–5.0</td></tr>
+    <tr><td><b>Delivered district heat</b></td><td><b>~53 GWh<sub>th</sub>/yr</b></td><td>Q×COP/(COP−1)</td></tr>
+    <tr><td>Households served</td><td>~5,000 flats</td><td>@10 MWh<sub>th</sub>/yr each</td></tr>
+  </table></div>
+  <h3>Revenue at maturity (year 3, 85% occupancy)</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Line</th><th>€ / yr</th><th>Basis</th></tr>
+    <tr><td>Colocation — 4,250 kW @ €140/kW/mo</td><td>~€7.1M</td><td>secondary-market pricing</td></tr>
+    <tr><td>Sovereign cloud layer (VPS/S3/managed)</td><td>€1–3M</td><td>Infomaniak model; needs product + sales</td></tr>
+    <tr><td>Heat — 53 GWh<sub>th</sub> @ €70/MWh</td><td>~€3.7M</td><td>~€2.9M passes through to power + capex</td></tr>
+    <tr><td><b>Total</b></td><td><b>€11–14M</b></td><td>heat ≈ 15–20% of gross</td></tr>
+  </table></div>
+  <h3>Capital</h3>
+  <div class="tblwrap"><table>
+    <tr><th>Item</th><th>€ M</th><th>Basis</th></tr>
+    <tr><td>Datacenter shell, fit-out, power, cooling (5 MW)</td><td>40–50</td><td>~$10M/MW European benchmark (T&amp;T index 2025)</td></tr>
+    <tr><td>Heat pumps (~7 MW<sub>th</sub>), HX, buffer</td><td>5–7</td><td>€0.7–1M per MW<sub>th</sub></td></tr>
+    <tr><td>Network connection (≤2 km)</td><td>1–2</td><td>route-dependent</td></tr>
+    <tr><td><b>Total</b></td><td><b>~46–59</b></td><td></td></tr>
+    <tr><td>EU grants on thermal capex (30–45%)</td><td>−2.5 to −4</td><td>CZT state-aid scheme + Modernisation Fund</td></tr>
+    <tr><td>ELENA/TARGET engineering assistance</td><td>−0.5</td><td>up to 90% of development costs</td></tr>
+  </table></div>
+  <div class="callout warn"><b>What grants don't do:</b> nothing in the EU stack funds
+  servers or white space. The compute business must service ~€40M+ of capital on its
+  own — which is why the plan starts with a €400k pilot, not a €50M build.</div>
+</section>
+
+<section id="funding">
+  <h2><span class="n">05</span>EU funding stack</h2>
+  <div class="tblwrap"><table>
+    <tr><th>Instrument</th><th>What it gives</th><th>Fit</th></tr>
+    <tr><td><b>Modernisation Fund</b> (EU ETS)</td><td>SK envelope ~€3.89bn to 2030; district heating a named priority</td><td>Thermal capex grant; fund is hungry for non-gas heat flagships</td></tr>
+    <tr><td><b>Program Slovensko 2021–27</b> (SIEA)</td><td>Live calls, e.g. PSK-SIEA-008-2025 (efficiency + RES in enterprises); dedicated efficient-CZT state-aid scheme, €50M/project notification ceiling</td><td>Heat-recovery half of the project fits squarely</td></tr>
+    <tr><td><b>EIB ELENA</b></td><td>Grants up to 90% of project development cost for DH investment programmes</td><td>Pays for feasibility &amp; engineering phase</td></tr>
+    <tr><td><b>EIB TARGET TA</b></td><td>Technical assistance for transition regions — already used by Partizánske (2024) for DH incl. waste heat</td><td>Precedent: mid-size Slovak town, same topic</td></tr>
+    <tr><td><b>EIB / EBRD debt + SIH</b></td><td>Senior infrastructure lending; EIB active in Slovak energy (+€50M grid loan, 2026); Slovak Investment Holding co-invests</td><td>Project finance once offtake contracts exist</td></tr>
+    <tr><td><b>Innovation Fund</b></td><td>EU ETS grants for innovative low-carbon tech</td><td>Option for an integrated DC+HP+storage plant; oversubscribed</td></tr>
+    <tr><td><b>Plán obnovy (RRF)</b></td><td>Funded CZT decarbonisation, winds down 2026</td><td>Treat as closed for new large projects</td></tr>
+  </table></div>
+  <p><b>Open diligence question:</b> eligibility of a <i>private DC operator</i> (vs. a
+  regulated heat undertaking or municipal JV) under each call, and realised aid
+  intensity after state-aid cumulation. First €10k of legal spend goes here.</p>
+</section>
+
+<section id="requirements">
+  <h2><span class="n">06</span>Business &amp; regulatory requirements</h2>
+  <ol>
+    <li><b>ÚRSO heat licence</b> (Act 657/2004, výroba a rozvod tepla) — needed only when
+    selling heat off-site; the pilot consumes heat on-site and avoids it. Requires a
+    qualified responsible person (odborný zástupca).</li>
+    <li><b>Osvedčenie o súlade</b> with the municipal heat concept for new thermal
+    capacity ≥10 MW<sub>th</sub> — in practice, the town must want the project. Memorandum first.</li>
+    <li><b>ÚRSO two-component price regulation</b> — cost-audited. Structuring the €70/MWh
+    strategy so the regulator recognises the cost base is the sharpest regulatory risk.</li>
+    <li><b>Grid connection ≥5 MW</b> — application to ZSD/SSD/VSD or SEPS. The national
+    bottleneck; file at LOI stage.</li>
+    <li><b>Construction permits</b> — územné konanie, stavebné povolenie (new construction
+    act), EIA screening likely.</li>
+    <li><b>EED compliance</b> — Art. 26 waste-heat CBA (passed by construction),
+    Art. 12 KPI reporting ≥500 kW.</li>
+    <li><b>Compute certifications</b> — ISO 27001, then EUCS/SNAS track if public-sector
+    sovereignty demand is real. GDPR residency is the sales wedge.</li>
+    <li><b>Heat offtake contract</b> — 10+ year heat purchase agreement with the network
+    operator, or licensed direct supply to large offtakers.</li>
+  </ol>
+</section>
+
+<section id="wedge">
+  <h2><span class="n">07</span>The wedge — before any €50M is spent</h2>
+  <div class="grid">
+    <div class="card"><b>What</b><div class="small">One 300 kW immersion/water-cooled compute
+    container at a municipal aquapark or pool. Heat exchanger into the hot-water loop.
+    Compute sold as batch capacity (render, CI, inference).</div></div>
+    <div class="card"><b>Cost</b><div class="big">€350–450k</div><div class="small">container,
+    compute, HX skid, installation. Revenue inside 12 months.</div></div>
+    <div class="card"><b>Deal</b><div class="small">Pool buys heat at gas-minus-25%, 3-year
+    term. On-site consumption → no ÚRSO supplier licence. Under 500 kW → no EED reporting.</div></div>
+    <div class="card"><b>Proof</b><div class="small">Deep Green (UK) proved the unit
+    economics — a Devon pool cut its heating bill &gt;60%; Octopus Energy invested £200M
+    in the model (2024).</div></div>
+  </div>
+  <p>The pilot converts "no track record" into "the only team in Slovakia that has
+  actually done it" — and produces the metered dataset the full-scale heat PPA and
+  every grant application will be built on.</p>
+</section>
+
+<section id="investors">
+  <h2><span class="n">08</span>Who we pitch</h2>
+  <h3>Strategic &amp; offtake-side (first — they make the story true)</h3>
+  <ul>
+    <li><b>MH Teplárenský Holding</b> — state heat utility, six cities, decarbonisation
+    mandate, Modernisation Fund access. Pitch: compliant non-gas heat cheaper than your
+    marginal gas, at zero capex to you.</li>
+    <li><b>Municipal teplárne + mayors</b> — Partizánske (already in EIB TARGET planning,
+    wants waste heat), Spišská Nová Ves (fresh 2025 heat concept), aquapark towns for the wedge.</li>
+    <li><b>ESCOs</b> — ESCO Slovensko (SPP+ČEZ), KOOR, Veolia Energia Slovensko: could
+    build-own-operate the thermal skid while we run compute.</li>
+  </ul>
+  <h3>Institutional capital (full build)</h3>
+  <ul>
+    <li><b>EIB</b> (ELENA / TARGET / senior debt), <b>EBRD</b> (CEE district-heating track
+    record), <b>Slovak Investment Holding</b>.</li>
+    <li><b>Wood &amp; Company</b> energy/infra funds and <b>Eterus Capital</b> — CEE energy
+    assets are their lane.</li>
+    <li><b>Octopus Energy Generation</b> — wrote the £200M Deep Green cheque; a CEE version
+    with gas-priced offtake is a thesis extension for them.</li>
+  </ul>
+  <h3>Venture / growth (wedge + cloud layer)</h3>
+  <ul>
+    <li><b>Contrarian Ventures</b> (Vilnius, energy-transition-only, invests CEE),
+    <b>2150</b>, <b>Extantia</b>, <b>World Fund</b>.</li>
+    <li><b>Neulogy Ventures</b>, <b>ZAKA VC</b>, <b>Vision Ventures</b> — Slovak/CEE pre-seed;
+    <b>Crowdberry</b> for a community/municipal co-investment round (doubles as political
+    air-cover in the host town); <b>Sandberg Capital</b> for the cloud layer at growth stage.</li>
+  </ul>
+  <h3>Readers &amp; allies</h3>
+  <p class="small">SIEA efficient-heating programme office · ÚRSO regulatory policy section ·
+  MH SR energy section (state-aid scheme owners) · Bankwatch and energy-transition NGOs
+  wanting a non-gas DH flagship · Slovak hosting founder networks for compute distribution.</p>
+</section>
+
+<section id="roadmap">
+  <h2><span class="n">09</span>Roadmap</h2>
+  <div class="tblwrap"><table>
+    <tr><th>Phase</th><th>When</th><th>What</th><th>Capital</th></tr>
+    <tr><td>Validate</td><td>Days 0–90</td><td>Teaser + meetings (MHTH, 2 teplárne, 1 aquapark); state-aid &amp; licensing legal opinion; site screen of 16 CZT systems; wedge term sheet; 10 compute pre-sale conversations; go/no-go vs. kill criteria</td><td>&lt;€30k</td></tr>
+    <tr><td>Pilot</td><td>Months 3–15</td><td>300 kW container at pool; metered season of heat + sold compute; ELENA/TARGET application with shortlisted town</td><td>~€600k pre-seed</td></tr>
+    <tr><td>Develop</td><td>Months 12–30</td><td>Site secured, grid application matured, heat PPA signed, grants awarded, project-finance close</td><td>dev capital €2–4M</td></tr>
+    <tr><td>Build</td><td>Months 24–48</td><td>5 MW facility + thermal plant; phased white-space fit-out against pre-sold LOIs</td><td>~€50M project finance</td></tr>
+  </table></div>
+</section>
+
+<section id="risks">
+  <h2><span class="n">10</span>Risks &amp; kill criteria — stated up front</h2>
+  <ul>
+    <li><b>Regulatory confiscation (most likely, least visible):</b> ÚRSO's cost-audit
+    regime hands the heat spread to the offtaker. <i>Kill if</i> the pricing decree cannot
+    accommodate the model — checked by legal opinion in month 1, before incorporation.</li>
+    <li><b>Grid queue:</b> ≥5 MW connections exceeding 4 years at every screened site
+    makes the full build a 2030 story. <i>Kill (full build) if so;</i> wedge survives.</li>
+    <li><b>Thin compute demand:</b> sovereignty narrative ≠ purchase orders. <i>Kill if</i>
+    &lt;1 MW of LOIs after six months of pre-selling.</li>
+    <li><b>Heat price collapse:</b> gas falling far enough drags the €93 reference toward
+    €60 and the heat margin with it. Mitigant: heat is never underwritten above 20% of revenue.</li>
+    <li><b>State copies it:</b> MHTH does it itself with state money once proven. Mitigant:
+    speed, operating know-how, and being the JV partner they need anyway.</li>
+    <li><b>Offtake refusal:</b> MHTH + two municipals all decline &gt;€45/MWh<sub>th</sub>
+    → the Slovak premium is theoretical; the whole thesis reverts to Nordic economics and
+    we stop.</li>
+  </ul>
+</section>
+
+<section id="sources">
+  <h2><span class="n">11</span>Sources</h2>
+  <ul class="srcs">
+    <li>Infomaniak D4: <a href="https://news.infomaniak.com/en/infomaniak-inaugurates-a-revolutionary-data-center-that-recovers-100-of-its-energy-for-building-heating/">Infomaniak announcement</a> · <a href="https://www.siemens.com/en-us/content/infomaniak-d4-data-center/">Siemens case study</a> · <a href="https://www.tranetechnologies.com/en/index/blog/customer-stories/sustainable-digital-infrastructure-infomaniak-data-center.html">Trane heat-pump reference</a></li>
+    <li>Slovak heat prices: <a href="https://www.urso.gov.sk/pokles-cien-tepla-v-roku-2025-napriek-zdrazeniu-prepravy-plynu/">ÚRSO 2025 heat price release</a> · <a href="https://www.urso.gov.sk/ceny-energii-na-rok-2026/">ÚRSO 2026 energy prices</a> · <a href="https://spectator.sme.sk/business/c/living-in-slovakia-your-2026-energy-bill-depends-on-one-thing-state-aid">Slovak Spectator on 2026 subsidies</a></li>
+    <li>Comparable economics: <a href="https://www.eurelectric.org/stories/stockholm-exergi-data-parks-shows-the-potential-for-scaling-the-reuse-of-waste-heat-when-it-becomes-a-tradable-product/">Stockholm Exergi Data Parks</a> · <a href="https://octopus.energy/press/deep-green-investment/">Octopus × Deep Green £200M</a> · <a href="https://www.sciencedirect.com/science/article/pii/S1364032125005362">DC waste heat for DH — 2025 review</a></li>
+    <li>Regulation: <a href="https://eur-lex.europa.eu/eli/dir/2023/1791/oj/eng">EED (EU) 2023/1791</a> · <a href="https://www.slov-lex.sk/ezbierky/pravne-predpisy/SK/ZZ/2004/657/">Act 657/2004 on heat energy</a> · <a href="https://www.urso.gov.sk/povolenia-a-oznamenia/">ÚRSO permits</a></li>
+    <li>Funding: <a href="https://www.rescoop.eu/policy/financing-tracker/modernisation-fund/slovakia-modernisation-func">Modernisation Fund — Slovakia</a> · <a href="https://www.siea.sk/strukturalne-fondy-eu/program-slovensko/vyzvy-implementovane-siea/">SIEA — Program Slovensko calls</a> · <a href="https://eurofondy.gov.sk/wp-content/uploads/2024/01/Schema_statnej_pomoci_na_podporu_investicii_do_energeticky_ucinnych_systemov_centralizovaneho_zasobovania_teplom_alebo_chladom.pdf">Efficient-CZT state-aid scheme (PDF)</a> · <a href="https://www.eib.org/en/products/advisory-services/elena/index.htm">EIB ELENA</a> · <a href="https://bankwatch.org/blog/how-a-pioneering-slovak-town-is-modernising-its-district-heating-system">Partizánske / TARGET case</a> · <a href="https://bankwatch.org/blog/unfit-for-55-how-eu-climate-money-is-supporting-gas-fired-heating-in-slovakia">Bankwatch on gas in SK DH</a></li>
+    <li>Market: <a href="https://www.datacentermap.com/slovakia/">Data Center Map — Slovakia</a> · <a href="https://reports.turnerandtownsend.com/data-centre-construction-cost-index-2025/data-centre-cost-trends">Turner &amp; Townsend cost index 2025</a></li>
+  </ul>
+</section>
+
+<footer>
+  Research dossier generated from the private research corpus (fields/datacenter-heat-district-energy,
+  plays/sk-dc-heat-utility), August 2026. All financial figures are desk estimates for
+  evaluation and discussion — not an offer, engineering design, or investment advice.
+</footer>
+</div>
+</body>
+</html>
