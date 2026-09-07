@@ -14,12 +14,29 @@ The site (`index.html`, no build step) is published via GitHub Pages and covers:
 - The 300 kW aquapark wedge pilot
 - Investor and ally targets, roadmap, risks and kill criteria, sources
 
-Source of truth is the private research corpus (field
-`datacenter-heat-district-energy`, play `sk-dc-heat-utility` and four evidence
-notes). Edit there first; this site is the presentation layer.
+Source of truth is the research corpus (field `datacenter-heat-district-energy`,
+play `sk-dc-heat-utility` and four evidence notes). Edit there first; this site is
+the presentation layer.
 
 All figures are desk estimates for evaluation — not engineering, an offer, or
 investment advice.
+
+## Research documents
+
+Those six notes are published in full under [`docs/`](docs/), linked from the
+**Documents** section of the site and downloadable individually or as
+`docs/heatcloud-research-2026.zip`. They are copied verbatim from the corpus;
+only the cross-links are rewritten to resolve inside the flat folder, and links
+to notes outside this bundle are unwrapped to plain text.
+
+`.nojekyll` is required and must stay: the notes carry YAML frontmatter, and
+without it GitHub Pages would run them through Jekyll and convert them to HTML
+instead of serving them as markdown.
+
+To refresh them after editing the corpus, re-copy the six files, re-run the
+link rewrite, and regenerate the zip. The byte sizes quoted on the download
+buttons are hand-written in `index.html` (both panes) — update them if a note
+grows.
 
 ## Languages
 

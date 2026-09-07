@@ -108,6 +108,26 @@ figure{margin:1.4rem 0} figcaption{font-size:.82rem;color:var(--muted);margin-to
 footer{padding:2rem 0;color:var(--muted);font-size:.85rem}
 .srcs{font-size:.85rem;color:var(--muted)} .srcs li{margin:.2rem 0}
 
+/* ---- downloadable research documents ---- */
+.docs{display:grid;gap:.8rem;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));margin:1.2rem 0}
+.doc{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:.9rem 1rem;display:flex;flex-direction:column}
+.doc .kind{font-family:Arial,sans-serif;font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent)}
+.doc h3{margin:.2rem 0 .4rem;font-size:1rem}
+.doc p{margin:0 0 .85rem;font-size:.85rem;color:var(--muted);flex:1 1 auto}
+.dl{display:inline-flex;align-items:center;gap:.4rem;align-self:flex-start;
+  font-family:Arial,sans-serif;font-size:.76rem;letter-spacing:.03em;text-decoration:none;
+  color:var(--accent2);background:var(--chip);border:1px solid var(--line);
+  border-radius:99px;padding:.34rem .75rem;white-space:nowrap}
+.dl:hover{border-color:var(--accent2)}
+.dl svg{width:12px;height:12px;flex:none}
+.dl .sz{color:var(--muted);font-size:.72rem}
+.dlall{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin:.2rem 0 0}
+.dlall .dl{font-size:.85rem;padding:.5rem 1rem;background:var(--accent);color:#fff;border-color:var(--accent)}
+.dlall .dl .sz{color:rgba(255,255,255,.75)}
+.dlall .dl:hover{filter:brightness(1.08)}
+
 /* ---- wide content scrolls inside itself, never the page ---- */
 .tblwrap table{min-width:560px}
 .figscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:10px}
@@ -182,12 +202,14 @@ body[data-lang="sk"] nav [data-pane="sk"]{display:contents}
     <a class="sec" href="#numbers">The numbers</a><a class="sec" href="#funding">EU funding</a><a class="sec" href="#requirements">Requirements</a>
     <a class="sec" href="#wedge">The wedge</a><a class="sec" href="#investors">Investors</a><a class="sec" href="#roadmap">Roadmap</a>
     <a class="sec" href="#risks">Risks</a><a class="sec" href="#sources">Sources</a>
+    <a class="sec" href="#documents">Documents</a>
   </span>
   <span data-pane="sk">
     <a class="sec" href="#sk-thesis">Téza</a><a class="sec" href="#sk-model">Ako to funguje</a><a class="sec" href="#sk-market">Trh</a>
     <a class="sec" href="#sk-numbers">Čísla</a><a class="sec" href="#sk-funding">Eurofondy</a><a class="sec" href="#sk-requirements">Požiadavky</a>
     <a class="sec" href="#sk-wedge">Prvý krok</a><a class="sec" href="#sk-investors">Investori</a><a class="sec" href="#sk-roadmap">Plán</a>
     <a class="sec" href="#sk-risks">Riziká</a><a class="sec" href="#sk-sources">Zdroje</a>
+    <a class="sec" href="#sk-documents">Dokumenty</a>
   </span>
   </div>
   <div class="navright">
@@ -487,9 +509,101 @@ body[data-lang="sk"] nav [data-pane="sk"]{display:contents}
   </ul>
 </section>
 
+<section id="documents">
+  <h2><span class="n">12</span>Documents</h2>
+  <p>The six research notes this dossier was built from, published verbatim as plain
+  markdown — the field that defines the category, the play that turns it into a Slovak
+  deployment, and the four evidence notes underneath both. Every note states its own
+  confidence and its own kill criteria.</p>
+
+  <div class="dlall">
+    <a class="dl" href="docs/heatcloud-research-2026.zip" download>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+      Download all six <span class="sz">ZIP · 20 KB</span></a>
+    <a href="https://github.com/Mild-Solvent/heatcloud-slovakia/tree/main/docs">Browse on GitHub</a>
+  </div>
+
+  <div class="docs">
+    <div class="doc">
+      <span class="kind">Field</span>
+      <h3>Datacenter waste heat as district energy</h3>
+      <p>The category itself: where the money is, who owns it today, the four seams —
+      gas-parity pricing, the EED forcing function, micro-before-macro, funding assembly —
+      and the honest verdict that this is a bad fit for a software portfolio and possibly
+      a good business.</p>
+      <a class="dl" href="docs/datacenter-heat-district-energy.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Download <span class="sz">MD · 10 KB</span></a>
+    </div>
+
+    <div class="doc">
+      <span class="kind">Play</span>
+      <h3>HeatCloud — the Slovak deployment</h3>
+      <p>Thesis, the 300 kW aquapark wedge pilot, named buyers on both the compute and
+      the heat side, five falsifiable assumptions and five kill criteria — including the
+      heat price below which the whole thesis dies.</p>
+      <a class="dl" href="docs/sk-dc-heat-utility.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Download <span class="sz">MD · 13 KB</span></a>
+    </div>
+
+    <div class="doc">
+      <span class="kind">Evidence</span>
+      <h3>Comparable heat-reuse economics</h3>
+      <p>What projects of this shape have actually earned: Stockholm Exergi's Data Parks,
+      Octopus × Deep Green, and the 2025 review literature on datacenter waste heat into
+      district heating.</p>
+      <a class="dl" href="docs/dc-heat-reuse-economics-comparables-2026.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Download <span class="sz">MD · 3 KB</span></a>
+    </div>
+
+    <div class="doc">
+      <span class="kind">Evidence</span>
+      <h3>Infomaniak D4 — the reference plant</h3>
+      <p>The Swiss datacenter that recovers essentially all of its energy as building
+      heat, and the engineering references behind it. The existence proof the whole
+      thesis points at.</p>
+      <a class="dl" href="docs/infomaniak-d4-heat-recovery-2024.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Download <span class="sz">MD · 3 KB</span></a>
+    </div>
+
+    <div class="doc">
+      <span class="kind">Evidence</span>
+      <h3>The Slovak / EU funding stack</h3>
+      <p>Modernisation Fund, Program Slovensko, ELENA and TARGET, EIB/EBRD — what each
+      instrument will pay for, at what aid intensity, and who is an eligible applicant.</p>
+      <a class="dl" href="docs/sk-eu-heat-funding-stack-2026.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Download <span class="sz">MD · 4 KB</span></a>
+    </div>
+
+    <div class="doc">
+      <span class="kind">Evidence</span>
+      <h3>Slovak heat market prices</h3>
+      <p>ÚRSO-regulated heat prices and the gas-linked marginal cost that every number in
+      this dossier is priced against. If this note is wrong, the spread is wrong.</p>
+      <a class="dl" href="docs/sk-heat-market-prices-2025.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Download <span class="sz">MD · 3 KB</span></a>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <b>How to read these.</b> A <i>field</i> is a category scored on nine 1–5 axes; the
+    scores rank and provoke argument, they do not decide. A <i>play</i> is a business
+    model built on a gap in a field. <i>Evidence</i> is a captured source with an explicit
+    note on what it changes and how far to trust it. Both the field and the play here are
+    <span class="formula">confidence: low</span> — they are structured hypotheses, not
+    findings.
+  </div>
+</section>
+
 <footer>
-  Research dossier generated from the private research corpus (fields/datacenter-heat-district-energy,
-  plays/sk-dc-heat-utility), August 2026. All financial figures are desk estimates for
+  Research dossier generated from the research corpus (fields/datacenter-heat-district-energy,
+  plays/sk-dc-heat-utility), August 2026 — the six source notes are published in full under
+  <a href="#documents">Documents</a>. All financial figures are desk estimates for
   evaluation and discussion — not an offer, engineering design, or investment advice.
 </footer>
 </div>
@@ -800,11 +914,104 @@ body[data-lang="sk"] nav [data-pane="sk"]{display:contents}
   </ul>
 </section>
 
+<section id="sk-documents">
+  <h2><span class="n">12</span>Dokumenty</h2>
+  <p>Šesť výskumných poznámok, z ktorých tento podklad vznikol, zverejnených doslovne ako
+  čistý markdown — oblasť, ktorá definuje kategóriu, zámer, ktorý z nej robí konkrétne
+  slovenské nasadenie, a štyri zdrojové poznámky pod oboma. Každá poznámka uvádza vlastnú
+  mieru istoty a vlastné kritériá zastavenia.</p>
+
+  <div class="dlall">
+    <a class="dl" href="docs/heatcloud-research-2026.zip" download>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+      Stiahnuť všetkých šesť <span class="sz">ZIP · 20 kB</span></a>
+    <a href="https://github.com/Mild-Solvent/heatcloud-slovakia/tree/main/docs">Prezerať na GitHube</a>
+  </div>
+
+  <div class="docs">
+    <div class="doc">
+      <span class="kind">Oblasť</span>
+      <h3>Odpadové teplo z dátových centier ako CZT</h3>
+      <p>Samotná kategória: kde sú peniaze, kto ju dnes ovláda, štyri trhliny — cena na
+      úrovni plynu, tlak smernice EED, malé pred veľkým a poskladanie financovania — a
+      poctivý záver, že pre softvérové portfólio je to zlá voľba a pravdepodobne dobrý
+      biznis.</p>
+      <a class="dl" href="docs/datacenter-heat-district-energy.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Stiahnuť <span class="sz">MD · 10 kB</span></a>
+    </div>
+
+    <div class="doc">
+      <span class="kind">Zámer</span>
+      <h3>HeatCloud — slovenské nasadenie</h3>
+      <p>Téza, pilotný projekt 300 kW v mestskom aquaparku, konkrétni odberatelia na strane
+      výpočtového výkonu aj tepla, päť falzifikovateľných predpokladov a päť kritérií
+      zastavenia — vrátane ceny tepla, pod ktorou celá téza padá.</p>
+      <a class="dl" href="docs/sk-dc-heat-utility.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Stiahnuť <span class="sz">MD · 13 kB</span></a>
+    </div>
+
+    <div class="doc">
+      <span class="kind">Zdroj</span>
+      <h3>Porovnateľná ekonomika využitia tepla</h3>
+      <p>Čo projekty tohto typu skutočne zarobili: Data Parks od Stockholm Exergi,
+      Octopus × Deep Green a prehľadová literatúra z roku 2025 o odpadovom teple
+      z dátových centier v sústavách CZT.</p>
+      <a class="dl" href="docs/dc-heat-reuse-economics-comparables-2026.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Stiahnuť <span class="sz">MD · 3 kB</span></a>
+    </div>
+
+    <div class="doc">
+      <span class="kind">Zdroj</span>
+      <h3>Infomaniak D4 — referenčná prevádzka</h3>
+      <p>Švajčiarske dátové centrum, ktoré takmer všetku spotrebovanú energiu vracia ako
+      teplo do budov, a inžinierske referencie za ním. Dôkaz, že to fyzicky aj ekonomicky
+      funguje.</p>
+      <a class="dl" href="docs/infomaniak-d4-heat-recovery-2024.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Stiahnuť <span class="sz">MD · 3 kB</span></a>
+    </div>
+
+    <div class="doc">
+      <span class="kind">Zdroj</span>
+      <h3>Slovenský a európsky finančný stack</h3>
+      <p>Modernizačný fond, Program Slovensko, ELENA a TARGET, EIB/EBRD — čo ktorý nástroj
+      zaplatí, pri akej intenzite pomoci a kto je oprávnený žiadateľ.</p>
+      <a class="dl" href="docs/sk-eu-heat-funding-stack-2026.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Stiahnuť <span class="sz">MD · 4 kB</span></a>
+    </div>
+
+    <div class="doc">
+      <span class="kind">Zdroj</span>
+      <h3>Ceny tepla na Slovensku</h3>
+      <p>Regulované ceny tepla podľa ÚRSO a hraničné náklady naviazané na plyn, voči ktorým
+      je ocenené každé číslo v tomto podklade. Ak je táto poznámka nesprávna, je nesprávne
+      aj celé rozpätie.</p>
+      <a class="dl" href="docs/sk-heat-market-prices-2025.md" download>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 1.5v8.5M4.5 7L8 10.5 11.5 7M2 13.5h12"/></svg>
+        Stiahnuť <span class="sz">MD · 3 kB</span></a>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <b>Ako ich čítať.</b> <i>Oblasť</i> je kategória hodnotená na deviatich osiach 1–5;
+    skóre zoraďuje a vyvoláva diskusiu, nerozhoduje. <i>Zámer</i> je obchodný model
+    postavený na medzere v oblasti. <i>Zdroj</i> je zachytený prameň s výslovnou poznámkou,
+    čo mení a nakoľko sa mu dá veriť. Oblasť aj zámer sú tu
+    <span class="formula">confidence: low</span> — sú to štruktúrované hypotézy, nie
+    zistenia.
+  </div>
+</section>
+
 <footer>
-  Podklad vychádza zo súkromného výskumného korpusu (fields/datacenter-heat-district-energy,
-  plays/sk-dc-heat-utility), august 2026. Všetky finančné údaje sú odhady od stola určené na
-  posúdenie a diskusiu — nie sú ponukou, projektovou dokumentáciou ani investičným
-  poradenstvom.
+  Podklad vychádza z výskumného korpusu (fields/datacenter-heat-district-energy,
+  plays/sk-dc-heat-utility), august 2026 — šesť zdrojových poznámok je zverejnených v plnom
+  znení v sekcii <a href="#sk-documents">Dokumenty</a>. Všetky finančné údaje sú odhady od
+  stola určené na posúdenie a diskusiu — nie sú ponukou, projektovou dokumentáciou ani
+  investičným poradenstvom.
 </footer>
 </div>
 
