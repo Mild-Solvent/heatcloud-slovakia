@@ -34,7 +34,7 @@ docker run -d \
 
 echo "== waiting for it to answer"
 for i in $(seq 1 30); do
-  if curl -fsS -o /dev/null "http://${TSIP}:${PORT}/"; then break; fi
+  if curl -fs -o /dev/null "http://${TSIP}:${PORT}/" 2>/dev/null; then break; fi
   sleep 0.5
 done
 

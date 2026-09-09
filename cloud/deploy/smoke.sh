@@ -15,7 +15,7 @@ check() { # url expected-status [expected-substring]
   if [ "$code" != "$want" ]; then
     printf '  FAIL  %-58s %s (wanted %s)\n' "${url#$BASE}" "$code" "$want"; fail=$((fail+1)); return
   fi
-  if [ -n "$needle" ] && ! grep -qF "$needle" /tmp/smoke.body; then
+  if [ -n "$needle" ] && ! grep -qF -e "$needle" /tmp/smoke.body; then
     printf '  FAIL  %-58s missing %q\n' "${url#$BASE}" "$needle"; fail=$((fail+1)); return
   fi
   printf '  ok    %-58s %s\n' "${url#$BASE}" "$code"
