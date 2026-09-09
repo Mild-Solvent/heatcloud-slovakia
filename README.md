@@ -21,6 +21,14 @@ the presentation layer.
 All figures are desk estimates for evaluation — not engineering, an offer, or
 investment advice.
 
+## The product site
+
+The commercial site — service catalogue, pricing, legal documents and an
+interactive model of the business — lives in its own repository now:
+[mild-solvent/heatcloud](https://github.com/Mild-Solvent/heatcloud), published at
+<https://mild-solvent.github.io/heatcloud/>. This repository stays what it has
+always been: the research and the pitch.
+
 ## Research documents
 
 Those six notes are published in full under [`docs/`](docs/), linked from the
