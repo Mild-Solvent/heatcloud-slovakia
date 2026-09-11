@@ -29,6 +29,35 @@ interactive model of the business — lives in its own repository now:
 <https://mild-solvent.github.io/heatcloud/>. This repository stays what it has
 always been: the research and the pitch.
 
+## Working board
+
+The live plan is laid out as a shared canvas — the thesis, the 5 MW reference
+numbers, the first 90 days, the pitch list and the ranked kill criteria, as notes
+joined by arrows:
+
+<https://drafting-table-davs-projects-231199d0.vercel.app>
+
+Anyone with the board key can edit it. The key is the `BOARD_KEY` environment
+variable of the `drafting-table` Vercel project and is deliberately not written
+down in any repository — ask for it. Tap a note to select it, tap again to write
+on it, long-press (or right-click) for the menu, and drag the teal dot on a
+note's edge onto another note to connect them.
+
+A note flagged **for Claude** is work handed to an agent: it reads the board with
+`GET /api/state` and answers by writing a `claudeNote` back onto the note, which
+appears underneath the text. Two are flagged at the moment — drafting the
+one-page teaser, and site-screening the 16 candidate district heating systems
+from public grid and network data.
+
+The board is seeded from [`docs/sk-dc-heat-utility.md`](docs/sk-dc-heat-utility.md);
+the canvas and its seed script live in
+[mild-solvent/drafting-table](https://github.com/Mild-Solvent/drafting-table)
+(`scripts/seed.js`, `--force` to reload it from scratch).
+
+It is a working surface, not a source of truth. When something is settled on the
+board, write it back into the research corpus and refresh the notes under
+`docs/` — the same rule the site itself follows.
+
 ## Research documents
 
 Those six notes are published in full under [`docs/`](docs/), linked from the
